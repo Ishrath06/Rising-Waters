@@ -1,7 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-from sklearn.preprocessing import LabelEncoder, StandardScaler   # ✅ UPDATED
+from sklearn.preprocessing import LabelEncoder, StandardScaler
 from sklearn.model_selection import train_test_split
 
 # -------------------------
@@ -120,22 +120,12 @@ print(df.head())
 X = df.iloc[:, :-1].values
 y = df.iloc[:, -1].values
 
-print("\n===== SHAPES BEFORE SPLIT =====")
-print("X shape:", X.shape)
-print("y shape:", y.shape)
-
 X_train, X_test, y_train, y_test = train_test_split(
     X,
     y,
     test_size=0.25,
     random_state=10
 )
-
-print("\n===== DATA SPLIT COMPLETED =====")
-print("X_train:", X_train.shape)
-print("X_test:", X_test.shape)
-print("y_train:", y_train.shape)
-print("y_test:", y_test.shape)
 
 # -------------------------
 # Feature Scaling (EPIC 3 - PART 5)
@@ -146,5 +136,30 @@ X_train = sc.fit_transform(X_train)
 X_test = sc.transform(X_test)
 
 print("\n===== FEATURE SCALING COMPLETED =====")
-print("X_train scaled:", X_train.shape)
-print("X_test scaled:", X_test.shape)
+
+# =========================================================
+# 🚀 EPIC 4 - PART 2 (ADD THIS HERE)
+# =========================================================
+
+from sklearn import tree
+from sklearn import ensemble
+from sklearn import neighbors
+from xgboost import XGBClassifier
+
+# -------------------------
+# Model Initialization
+# -------------------------
+dtree = tree.DecisionTreeClassifier()
+rf = ensemble.RandomForestClassifier()
+knn = neighbors.KNeighborsClassifier()
+xgb = XGBClassifier()
+
+# -------------------------
+# Model Training
+# -------------------------
+dtree.fit(X_train, y_train)
+rf.fit(X_train, y_train)
+knn.fit(X_train, y_train)
+xgb.fit(X_train, y_train)
+
+print("\n===== MODELS TRAINED SUCCESSFULLY =====")
