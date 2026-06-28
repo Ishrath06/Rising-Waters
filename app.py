@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 import joblib
 import numpy as np
 
@@ -12,6 +12,18 @@ scaler = joblib.load("transform.save")
 @app.route("/")
 def home():
     return render_template("home.html")
+
+
+# Route for Flood Predicted page
+@app.route("/chance")
+def chance():
+    return render_template("chance.html")
+
+
+# Route for No Flood page
+@app.route("/no_chance")
+def no_chance():
+    return render_template("no_chance.html")
 
 
 @app.route("/predict", methods=["GET", "POST"])
@@ -37,9 +49,9 @@ def predict():
         result = model.predict(data)
 
         if result[0] == 1:
-            return render_template("chance.html")
+            return redirect(url_for("chance"))
         else:
-            return render_template("no_chance.html")
+            return redirect(url_for("no_chance"))
 
     return render_template("index.html")
 
