@@ -278,3 +278,46 @@ best_model = compareModel(
     knn_predictions,
     xgb_predictions
 )
+
+# =========================================================
+# 🚀 EPIC 4 - FINAL STEP: MODEL EVALUATION + SAVING
+# =========================================================
+
+import joblib
+from sklearn import metrics
+
+print("\n===== FINAL MODEL PERFORMANCE CHECK =====")
+
+# Predictions already available
+rf_pred = rf_predictions
+knn_pred = knn_predictions
+xgb_pred = xgb_predictions
+
+# -------------------------
+# Accuracy Comparison
+# -------------------------
+print("\n===== ACCURACY SCORES =====")
+print("Random Forest :", metrics.accuracy_score(y_test, rf_pred))
+print("KNN           :", metrics.accuracy_score(y_test, knn_pred))
+print("XGBoost       :", metrics.accuracy_score(y_test, xgb_pred))
+
+# -------------------------
+# XGBOOST EXTRA METRICS (AS PER EPIC)
+# -------------------------
+print("\n===== XGBOOST METRICS =====")
+print("Precision :", metrics.precision_score(y_test, xgb_pred))
+print("Recall    :", metrics.recall_score(y_test, xgb_pred))
+
+# -------------------------
+# SAVE FINAL MODEL + SCALER
+# -------------------------
+
+# Save trained XGBoost model
+joblib.dump(xgb_model, "floods.save")
+
+# Save scaler for deployment
+joblib.dump(sc, "transform.save")
+
+print("\n===== MODEL SAVED SUCCESSFULLY =====")
+print("✔ floods.save (XGBoost Model)")
+print("✔ transform.save (Scaler)")
