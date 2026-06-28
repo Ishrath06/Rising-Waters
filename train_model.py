@@ -1,8 +1,8 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-from sklearn.preprocessing import LabelEncoder
-from sklearn.model_selection import train_test_split   # ✅ ADDED
+from sklearn.preprocessing import LabelEncoder, StandardScaler   # ✅ UPDATED
+from sklearn.model_selection import train_test_split
 
 # -------------------------
 # Load Dataset
@@ -117,11 +117,7 @@ print(df.head())
 # -------------------------
 # Splitting Data into Train and Test (EPIC 3 - PART 4)
 # -------------------------
-
-# Independent features
 X = df.iloc[:, :-1].values
-
-# Dependent feature (target)
 y = df.iloc[:, -1].values
 
 print("\n===== SHAPES BEFORE SPLIT =====")
@@ -140,3 +136,15 @@ print("X_train:", X_train.shape)
 print("X_test:", X_test.shape)
 print("y_train:", y_train.shape)
 print("y_test:", y_test.shape)
+
+# -------------------------
+# Feature Scaling (EPIC 3 - PART 5)
+# -------------------------
+sc = StandardScaler()
+
+X_train = sc.fit_transform(X_train)
+X_test = sc.transform(X_test)
+
+print("\n===== FEATURE SCALING COMPLETED =====")
+print("X_train scaled:", X_train.shape)
+print("X_test scaled:", X_test.shape)
