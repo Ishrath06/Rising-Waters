@@ -175,7 +175,7 @@ def KNN(X_train, X_test, y_train, y_test, n_neighbors=5):
     return model, y_pred
 
 # =========================================================
-# 🚀 XGBOOST FUNCTION (ADDED)
+# 🚀 XGBOOST FUNCTION
 # =========================================================
 from xgboost import XGBClassifier
 
@@ -200,7 +200,7 @@ def XGBoost(X_train, X_test, y_train, y_test):
     return model, y_pred
 
 # -------------------------
-# Other Models (EPIC 4 - Part 2)
+# Other Models
 # -------------------------
 from sklearn import tree
 
@@ -232,4 +232,49 @@ xgb_model, xgb_predictions = XGBoost(
     X_test,
     y_train,
     y_test
+)
+
+# =========================================================
+# 🚀 MODEL COMPARISON (FINAL EPIC 4 PART)
+# =========================================================
+from sklearn.metrics import accuracy_score
+
+def compareModel(y_test, dtree, rf_pred, knn_pred, xgb_pred):
+
+    print("\n===== MODEL COMPARISON =====")
+
+    dtree_acc = accuracy_score(y_test, dtree.predict(X_test))
+    rf_acc = accuracy_score(y_test, rf_pred)
+    knn_acc = accuracy_score(y_test, knn_pred)
+    xgb_acc = accuracy_score(y_test, xgb_pred)
+
+    print("\nDecision Tree Accuracy :", dtree_acc)
+    print("Random Forest Accuracy :", rf_acc)
+    print("KNN Accuracy           :", knn_acc)
+    print("XGBoost Accuracy       :", xgb_acc)
+
+    accuracies = {
+        "Decision Tree": dtree_acc,
+        "Random Forest": rf_acc,
+        "KNN": knn_acc,
+        "XGBoost": xgb_acc
+    }
+
+    best_model = max(accuracies, key=accuracies.get)
+
+    print("\n====================================")
+    print("BEST MODEL:", best_model)
+    print("====================================")
+
+    return best_model
+
+# -------------------------
+# CALL COMPARISON
+# -------------------------
+best_model = compareModel(
+    y_test,
+    dtree,
+    rf_predictions,
+    knn_predictions,
+    xgb_predictions
 )
