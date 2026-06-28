@@ -2,6 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.preprocessing import LabelEncoder
+from sklearn.model_selection import train_test_split   # ✅ ADDED
 
 # -------------------------
 # Load Dataset
@@ -100,11 +101,9 @@ plt.show()
 # -------------------------
 # Handling Categorical Values (EPIC 3 - PART 3)
 # -------------------------
-
 print("\n===== CATEGORICAL COLUMNS BEFORE ENCODING =====")
 print(df.select_dtypes(include=['object']).columns)
 
-# Label Encoding for categorical columns
 le = LabelEncoder()
 
 categorical_cols = df.select_dtypes(include=['object']).columns
@@ -114,3 +113,30 @@ for col in categorical_cols:
 
 print("\n===== CATEGORICAL ENCODING COMPLETED =====")
 print(df.head())
+
+# -------------------------
+# Splitting Data into Train and Test (EPIC 3 - PART 4)
+# -------------------------
+
+# Independent features
+X = df.iloc[:, :-1].values
+
+# Dependent feature (target)
+y = df.iloc[:, -1].values
+
+print("\n===== SHAPES BEFORE SPLIT =====")
+print("X shape:", X.shape)
+print("y shape:", y.shape)
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X,
+    y,
+    test_size=0.25,
+    random_state=10
+)
+
+print("\n===== DATA SPLIT COMPLETED =====")
+print("X_train:", X_train.shape)
+print("X_test:", X_test.shape)
+print("y_train:", y_train.shape)
+print("y_test:", y_test.shape)
