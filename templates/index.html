@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flood Prediction</title>
+</head>
+<body>
+
+<h2>Flood Prediction System</h2>
+
+<form action="/predict" method="POST">
+
+    <label>Temperature:</label><br>
+    <input type="number" name="temp" required><br><br>
+
+    <label>Humidity:</label><br>
+    <input type="number" name="humidity" required><br><br>
+
+    <label>Cloud Cover:</label><br>
+    <input type="number" name="cloud" required><br><br>
+
+    <label>Annual Rainfall:</label><br>
+    <input type="number" step="any" name="annual" required><br><br>
+
+    <label>Jan-Feb Rainfall:</label><br>
+    <input type="number" step="any" name="janfeb" required><br><br>
+
+    <label>Mar-May Rainfall:</label><br>
+    <input type="number" step="any" name="marmay" required><br><br>
+
+    <label>Jun-Sep Rainfall:</label><br>
+    <input type="number" step="any" name="junsep" required><br><br>
+
+    <label>Oct-Dec Rainfall:</label><br>
+    <input type="number" step="any" name="octdec" required><br><br>
+
+    <label>Average June Rainfall:</label><br>
+    <input type="number" step="any" name="avgjune" required><br><br>
+
+    <label>Sub:</label><br>
+    <input type="number" step="any" name="sub" required><br><br>
+
+    <button type="submit">Predict</button>
+
+</form>
+
+</body>
+</html>
