@@ -37,3 +37,11 @@ plt.show()
 sns.boxplot(x=df['ANNUAL'])
 plt.title("Annual Rainfall Box Plot")
 plt.show()
+# -------------------------
+# Multivariate Analysis
+# -------------------------
+
+plt.figure(figsize=(12,8))
+sns.heatmap(df.corr(), annot=True, cmap='coolwarm')
+plt.title("Correlation Heatmap")
+plt.show()
