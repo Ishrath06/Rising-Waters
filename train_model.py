@@ -1,24 +1,39 @@
 import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
 
-# Read the dataset
 df = pd.read_excel("dataset/flood dataset.xlsx")
 
-# First 5 rows
-print("First 5 Rows:")
 print(df.head())
-
-# Shape
-print("\nShape of Dataset:")
 print(df.shape)
-
-# Column Names
-print("\nColumn Names:")
-print(df.columns)
-
-# Dataset Information
-print("\nDataset Information:")
-df.info()
-
-# Statistical Summary
-print("\nStatistical Summary:")
+print(df.info())
 print(df.describe())
+
+# -------------------------
+# Univariate Analysis
+# -------------------------
+
+# Temperature (correct column: Temp)
+sns.displot(df['Temp'])
+plt.title("Temperature Distribution")
+plt.show()
+
+# Humidity
+sns.displot(df['Humidity'])
+plt.title("Humidity Distribution")
+plt.show()
+
+# Annual Rainfall (correct column: ANNUAL)
+sns.displot(df['ANNUAL'])
+plt.title("Annual Rainfall Distribution")
+plt.show()
+
+# Box plot - Temp
+sns.boxplot(x=df['Temp'])
+plt.title("Temperature Box Plot")
+plt.show()
+
+# Box plot - ANNUAL
+sns.boxplot(x=df['ANNUAL'])
+plt.title("Annual Rainfall Box Plot")
+plt.show()
