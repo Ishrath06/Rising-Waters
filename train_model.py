@@ -1,6 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+from sklearn.preprocessing import LabelEncoder
 
 # -------------------------
 # Load Dataset
@@ -19,7 +20,6 @@ print(df.isnull().any())
 print("\n===== TOTAL MISSING VALUES =====")
 print(df.isnull().sum().sum())
 
-# If needed (only if your dataset has missing values)
 df.fillna(df.mean(numeric_only=True), inplace=True)
 df.fillna(df.mode().iloc[0], inplace=True)
 
@@ -75,8 +75,6 @@ plt.show()
 # -------------------------
 # Handling Outliers (EPIC 3 - PART 2)
 # -------------------------
-
-# Example: Temp column
 Q1 = df['Temp'].quantile(0.25)
 Q3 = df['Temp'].quantile(0.75)
 
@@ -89,14 +87,30 @@ print("\n===== OUTLIER BOUNDS =====")
 print("Lower Bound:", lower_bound)
 print("Upper Bound:", upper_bound)
 
-# Capping outliers
 df['Temp'] = df['Temp'].apply(
     lambda x: lower_bound if x < lower_bound else upper_bound if x > upper_bound else x
 )
 
 print("\n===== OUTLIERS HANDLED SUCCESSFULLY =====")
 
-# Optional: Check after handling
 sns.boxplot(x=df['Temp'])
 plt.title("Temperature After Outlier Handling")
 plt.show()
+
+# -------------------------
+# Handling Categorical Values (EPIC 3 - PART 3)
+# -------------------------
+
+print("\n===== CATEGORICAL COLUMNS BEFORE ENCODING =====")
+print(df.select_dtypes(include=['object']).columns)
+
+# Label Encoding for categorical columns
+le = LabelEncoder()
+
+categorical_cols = df.select_dtypes(include=['object']).columns
+
+for col in categorical_cols:
+    df[col] = le.fit_transform(df[col])
+
+print("\n===== CATEGORICAL ENCODING COMPLETED =====")
+print(df.head())
