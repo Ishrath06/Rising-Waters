@@ -71,3 +71,32 @@ sns.heatmap(
 
 plt.title("Correlation Heatmap")
 plt.show()
+
+# -------------------------
+# Handling Outliers (EPIC 3 - PART 2)
+# -------------------------
+
+# Example: Temp column
+Q1 = df['Temp'].quantile(0.25)
+Q3 = df['Temp'].quantile(0.75)
+
+IQR = Q3 - Q1
+
+lower_bound = Q1 - 1.5 * IQR
+upper_bound = Q3 + 1.5 * IQR
+
+print("\n===== OUTLIER BOUNDS =====")
+print("Lower Bound:", lower_bound)
+print("Upper Bound:", upper_bound)
+
+# Capping outliers
+df['Temp'] = df['Temp'].apply(
+    lambda x: lower_bound if x < lower_bound else upper_bound if x > upper_bound else x
+)
+
+print("\n===== OUTLIERS HANDLED SUCCESSFULLY =====")
+
+# Optional: Check after handling
+sns.boxplot(x=df['Temp'])
+plt.title("Temperature After Outlier Handling")
+plt.show()
