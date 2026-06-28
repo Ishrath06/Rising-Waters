@@ -123,7 +123,7 @@ X_test = sc.transform(X_test)
 print("\n===== FEATURE SCALING COMPLETED =====")
 
 # =========================================================
-# 🚀 EPIC 4 - RANDOM FOREST FUNCTION (KANBAN REQUIREMENT)
+# 🚀 EPIC 4 - RANDOM FOREST FUNCTION
 # =========================================================
 
 from sklearn.ensemble import RandomForestClassifier
@@ -150,27 +150,53 @@ def randomForest(X_train, X_test, y_train, y_test,
 
     return model, y_pred
 
+# =========================================================
+# 🚀 EPIC 4 - KNN FUNCTION (ADDED)
+# =========================================================
+
+from sklearn.neighbors import KNeighborsClassifier
+
+def KNN(X_train, X_test, y_train, y_test, n_neighbors=5):
+
+    print("\n===== KNN MODEL BUILDING =====")
+
+    model = KNeighborsClassifier(n_neighbors=n_neighbors)
+
+    model.fit(X_train, y_train)
+
+    y_pred = model.predict(X_test)
+
+    print("\nAccuracy:", accuracy_score(y_test, y_pred))
+    print("\nConfusion Matrix:\n", confusion_matrix(y_test, y_pred))
+    print("\nClassification Report:\n", classification_report(y_test, y_pred))
+
+    return model, y_pred
+
 # -------------------------
 # Other Models (EPIC 4 - Part 2)
 # -------------------------
 from sklearn import tree
-from sklearn import neighbors
 from xgboost import XGBClassifier
 
 dtree = tree.DecisionTreeClassifier()
-knn = neighbors.KNeighborsClassifier()
 xgb = XGBClassifier()
 
 dtree.fit(X_train, y_train)
-knn.fit(X_train, y_train)
 xgb.fit(X_train, y_train)
 
 print("\n===== MODELS TRAINED SUCCESSFULLY =====")
 
 # -------------------------
-# CALL RANDOM FOREST FUNCTION
+# CALL FUNCTIONS
 # -------------------------
 rf_model, rf_predictions = randomForest(
+    X_train,
+    X_test,
+    y_train,
+    y_test
+)
+
+knn_model, knn_predictions = KNN(
     X_train,
     X_test,
     y_train,
