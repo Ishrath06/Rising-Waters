@@ -4,16 +4,21 @@ import pandas as pd
 df = pd.read_excel("dataset/flood dataset.xlsx")
 
 # First 5 rows
+print("First 5 Rows:")
 print(df.head())
 
-# Number of rows and columns
+# Shape
 print("\nShape of Dataset:")
 print(df.shape)
 
-# Column names
+# Column Names
 print("\nColumn Names:")
 print(df.columns)
 
-# Information about dataset
+# Dataset Information
 print("\nDataset Information:")
-print(df.info())
+df.info()
+
+# Statistical Summary
+print("\nStatistical Summary:")
+print(df.describe())
