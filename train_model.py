@@ -150,10 +150,9 @@ def randomForest(X_train, X_test, y_train, y_test,
     return model, y_pred
 
 # =========================================================
-# 🚀 KNN FUNCTION (FIXED & CLEAN)
+# 🚀 KNN FUNCTION
 # =========================================================
 from sklearn.neighbors import KNeighborsClassifier
-from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
 
 def KNN(X_train, X_test, y_train, y_test, n_neighbors=5):
 
@@ -175,17 +174,39 @@ def KNN(X_train, X_test, y_train, y_test, n_neighbors=5):
 
     return model, y_pred
 
+# =========================================================
+# 🚀 XGBOOST FUNCTION (ADDED)
+# =========================================================
+from xgboost import XGBClassifier
+
+def XGBoost(X_train, X_test, y_train, y_test):
+
+    print("\n===== XGBOOST MODEL BUILDING =====")
+
+    model = XGBClassifier(eval_metric='logloss')
+
+    model.fit(X_train, y_train)
+
+    y_pred = model.predict(X_test)
+
+    accuracy = accuracy_score(y_test, y_pred)
+    cm = confusion_matrix(y_test, y_pred)
+    cr = classification_report(y_test, y_pred)
+
+    print("\nAccuracy:", accuracy)
+    print("\nConfusion Matrix:\n", cm)
+    print("\nClassification Report:\n", cr)
+
+    return model, y_pred
+
 # -------------------------
 # Other Models (EPIC 4 - Part 2)
 # -------------------------
 from sklearn import tree
-from xgboost import XGBClassifier
 
 dtree = tree.DecisionTreeClassifier()
-xgb = XGBClassifier()
 
 dtree.fit(X_train, y_train)
-xgb.fit(X_train, y_train)
 
 print("\n===== MODELS TRAINED SUCCESSFULLY =====")
 
@@ -200,6 +221,13 @@ rf_model, rf_predictions = randomForest(
 )
 
 knn_model, knn_predictions = KNN(
+    X_train,
+    X_test,
+    y_train,
+    y_test
+)
+
+xgb_model, xgb_predictions = XGBoost(
     X_train,
     X_test,
     y_train,
