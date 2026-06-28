@@ -2,12 +2,31 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+# -------------------------
+# Load Dataset
+# -------------------------
 df = pd.read_excel("dataset/flood dataset.xlsx")
+
+# -------------------------
+# Handling Missing Values (EPIC 3 - PART 1)
+# -------------------------
+print("===== MISSING VALUES COUNT =====")
+print(df.isnull().sum())
+
+print("\n===== ANY MISSING VALUES (True/False) =====")
+print(df.isnull().any())
+
+print("\n===== TOTAL MISSING VALUES =====")
+print(df.isnull().sum().sum())
+
+# If needed (only if your dataset has missing values)
+df.fillna(df.mean(numeric_only=True), inplace=True)
+df.fillna(df.mode().iloc[0], inplace=True)
 
 # -------------------------
 # Descriptive Analysis
 # -------------------------
-print("===== FIRST 5 ROWS =====")
+print("\n===== FIRST 5 ROWS =====")
 print(df.head())
 
 print("\n===== DATA INFO =====")
@@ -42,9 +61,13 @@ plt.show()
 # -------------------------
 # Multivariate Analysis
 # -------------------------
-plt.figure(figsize=(12,8))
-sns.heatmap(df.select_dtypes(include=['number']).corr(),
-            annot=True,
-            cmap='coolwarm')
+plt.figure(figsize=(12, 8))
+
+sns.heatmap(
+    df.select_dtypes(include=['number']).corr(),
+    annot=True,
+    cmap='coolwarm'
+)
+
 plt.title("Correlation Heatmap")
 plt.show()
