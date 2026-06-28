@@ -84,38 +84,23 @@ IQR = Q3 - Q1
 lower_bound = Q1 - 1.5 * IQR
 upper_bound = Q3 + 1.5 * IQR
 
-print("\n===== OUTLIER BOUNDS =====")
-print("Lower Bound:", lower_bound)
-print("Upper Bound:", upper_bound)
-
 df['Temp'] = df['Temp'].apply(
     lambda x: lower_bound if x < lower_bound else upper_bound if x > upper_bound else x
 )
 
 print("\n===== OUTLIERS HANDLED SUCCESSFULLY =====")
 
-sns.boxplot(x=df['Temp'])
-plt.title("Temperature After Outlier Handling")
-plt.show()
-
 # -------------------------
 # Handling Categorical Values (EPIC 3 - PART 3)
 # -------------------------
-print("\n===== CATEGORICAL COLUMNS BEFORE ENCODING =====")
-print(df.select_dtypes(include=['object']).columns)
-
 le = LabelEncoder()
-
 categorical_cols = df.select_dtypes(include=['object']).columns
 
 for col in categorical_cols:
     df[col] = le.fit_transform(df[col])
 
-print("\n===== CATEGORICAL ENCODING COMPLETED =====")
-print(df.head())
-
 # -------------------------
-# Splitting Data into Train and Test (EPIC 3 - PART 4)
+# Splitting Data
 # -------------------------
 X = df.iloc[:, :-1].values
 y = df.iloc[:, -1].values
@@ -128,7 +113,7 @@ X_train, X_test, y_train, y_test = train_test_split(
 )
 
 # -------------------------
-# Feature Scaling (EPIC 3 - PART 5)
+# Feature Scaling
 # -------------------------
 sc = StandardScaler()
 
@@ -138,28 +123,56 @@ X_test = sc.transform(X_test)
 print("\n===== FEATURE SCALING COMPLETED =====")
 
 # =========================================================
-# 🚀 EPIC 4 - PART 2 (ADD THIS HERE)
+# 🚀 EPIC 4 - RANDOM FOREST FUNCTION (KANBAN REQUIREMENT)
 # =========================================================
 
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
+
+def randomForest(X_train, X_test, y_train, y_test,
+                 n_estimators=180,
+                 random_state=42):
+
+    print("\n===== RANDOM FOREST MODEL BUILDING =====")
+
+    model = RandomForestClassifier(
+        n_estimators=n_estimators,
+        random_state=random_state
+    )
+
+    model.fit(X_train, y_train)
+
+    y_pred = model.predict(X_test)
+
+    print("\nAccuracy:", accuracy_score(y_test, y_pred))
+    print("\nConfusion Matrix:\n", confusion_matrix(y_test, y_pred))
+    print("\nClassification Report:\n", classification_report(y_test, y_pred))
+
+    return model, y_pred
+
+# -------------------------
+# Other Models (EPIC 4 - Part 2)
+# -------------------------
 from sklearn import tree
-from sklearn import ensemble
 from sklearn import neighbors
 from xgboost import XGBClassifier
 
-# -------------------------
-# Model Initialization
-# -------------------------
 dtree = tree.DecisionTreeClassifier()
-rf = ensemble.RandomForestClassifier()
 knn = neighbors.KNeighborsClassifier()
 xgb = XGBClassifier()
 
-# -------------------------
-# Model Training
-# -------------------------
 dtree.fit(X_train, y_train)
-rf.fit(X_train, y_train)
 knn.fit(X_train, y_train)
 xgb.fit(X_train, y_train)
 
 print("\n===== MODELS TRAINED SUCCESSFULLY =====")
+
+# -------------------------
+# CALL RANDOM FOREST FUNCTION
+# -------------------------
+rf_model, rf_predictions = randomForest(
+    X_train,
+    X_test,
+    y_train,
+    y_test
+)
