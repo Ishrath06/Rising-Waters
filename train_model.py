@@ -123,9 +123,8 @@ X_test = sc.transform(X_test)
 print("\n===== FEATURE SCALING COMPLETED =====")
 
 # =========================================================
-# 🚀 EPIC 4 - RANDOM FOREST FUNCTION
+# 🚀 RANDOM FOREST FUNCTION
 # =========================================================
-
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
 
@@ -151,10 +150,10 @@ def randomForest(X_train, X_test, y_train, y_test,
     return model, y_pred
 
 # =========================================================
-# 🚀 EPIC 4 - KNN FUNCTION (ADDED)
+# 🚀 KNN FUNCTION (FIXED & CLEAN)
 # =========================================================
-
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
 
 def KNN(X_train, X_test, y_train, y_test, n_neighbors=5):
 
@@ -166,9 +165,13 @@ def KNN(X_train, X_test, y_train, y_test, n_neighbors=5):
 
     y_pred = model.predict(X_test)
 
-    print("\nAccuracy:", accuracy_score(y_test, y_pred))
-    print("\nConfusion Matrix:\n", confusion_matrix(y_test, y_pred))
-    print("\nClassification Report:\n", classification_report(y_test, y_pred))
+    accuracy = accuracy_score(y_test, y_pred)
+    cm = confusion_matrix(y_test, y_pred)
+    cr = classification_report(y_test, y_pred)
+
+    print("\nAccuracy:", accuracy)
+    print("\nConfusion Matrix:\n", cm)
+    print("\nClassification Report:\n", cr)
 
     return model, y_pred
 
