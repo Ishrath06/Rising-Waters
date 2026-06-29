@@ -187,3 +187,13 @@ button {
     transform: scale(1.05);
     background: white;
 }
+/* 🌊 Main Heading Fix */
+.main-title {
+    color: #1e90ff;   /* bright clean blue */
+    font-size: 38px;
+    font-weight: 800;
+    text-align: center;
+    margin-top: 40px;
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.25);
+}
