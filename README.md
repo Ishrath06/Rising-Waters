@@ -58,21 +58,11 @@ Rising-Waters/
 
 ## 📊 Data Visualization (EDA Results)
 
-### 🌡 Temperature Distribution
-![Temperature](static/temp_distribution.png)
-
-### 💧 Humidity Distribution
-![Humidity](static/humidity_distribution.png)
-
-### 🌧 Annual Rainfall Distribution
-![Annual Rainfall](static/annual_distribution.png)
 
 ### 📊 Correlation Heatmap
 ![Correlation Heatmap](static/correlation_heatmap.png)
 
-### 📦 Boxplot Analysis
-![Temp Boxplot](static/temp_boxplot.png)
-![Annual Boxplot](static/annual_boxplot.png)
+
 
 ## 🌐 Live Demo
 👉 https://rising-waters-xzyj.onrender.com
@@ -84,14 +74,11 @@ Rising-Waters/
 ```bash
 git clone https://github.com/Ishrath06/Rising-Waters.git
 
-
 2️⃣ Move into folder
 cd Rising-Waters
 
-
 3️⃣ Install dependencies
 pip install -r requirements.txt
-
 
 4️⃣ Run Flask app
 python app.py
@@ -99,7 +86,6 @@ python app.py
 5️⃣ Open in browser
 http://127.0.0.1:5000/
 
-```
 👨‍💻 Team Members
 Shaik Ishrath (Team Lead)
 Battu Chakradhar Raju (Member)
