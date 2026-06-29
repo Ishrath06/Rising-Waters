@@ -84,11 +84,14 @@ Rising-Waters/
 ```bash
 git clone https://github.com/Ishrath06/Rising-Waters.git
 
+
 2️⃣ Move into folder
 cd Rising-Waters
 
+
 3️⃣ Install dependencies
 pip install -r requirements.txt
+
 
 4️⃣ Run Flask app
 python app.py
@@ -97,11 +100,15 @@ python app.py
 http://127.0.0.1:5000/
 
 
+
+
+
 👨‍💻 Team Members
 Shaik Ishrath (Team Lead)
 Battu Chakradhar Raju (Member)
 Kannari Meghana (Member)
 Kenchugundu Venkatesh (Member)
 Syed Abdul Irfan (Member)
+```
 
 ---
