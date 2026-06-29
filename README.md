@@ -78,9 +78,9 @@ Rising-Waters/
 👉 https://rising-waters-xzyj.onrender.com
 ---
 
-##  How to Run Locally
+## 🚀 How to Run Locally
 
-1️⃣ Clone Repository
+### 1️⃣ Clone Repository
 ```bash
 git clone https://github.com/Ishrath06/Rising-Waters.git
 
@@ -95,6 +95,9 @@ python app.py
 
 5️⃣ Open in browser
 http://127.0.0.1:5000/
+
+---
+
 
 
 ## 👨‍💻 Team Members
