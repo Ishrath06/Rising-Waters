@@ -99,16 +99,12 @@ python app.py
 5️⃣ Open in browser
 http://127.0.0.1:5000/
 
-
-
-
-
+```
 👨‍💻 Team Members
 Shaik Ishrath (Team Lead)
 Battu Chakradhar Raju (Member)
 Kannari Meghana (Member)
 Kenchugundu Venkatesh (Member)
 Syed Abdul Irfan (Member)
-```
 
 ---
