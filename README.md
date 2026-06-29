@@ -83,27 +83,25 @@ Rising-Waters/
 ### 1️⃣ Clone Repository
 ```bash
 git clone https://github.com/Ishrath06/Rising-Waters.git
-
 2️⃣ Move into folder
 cd Rising-Waters
-
 3️⃣ Install dependencies
 pip install -r requirements.txt
-
 4️⃣ Run Flask app
 python app.py
-
 5️⃣ Open in browser
+
 http://127.0.0.1:5000/
+
 
 ---
 
-
-
 ## 👨‍💻 Team Members
 
-- Shaik Ishrath (Team Lead)
-- Battu Chakradhar Raju (Member)
-- Kannari Meghana (Member)
-- Kenchugundu Venkatesh (Member)
+- Shaik Ishrath (Team Lead)  
+- Battu Chakradhar Raju (Member)  
+- Kannari Meghana (Member)  
+- Kenchugundu Venkatesh (Member)  
 - Syed Abdul Irfan (Member)
+
+---
