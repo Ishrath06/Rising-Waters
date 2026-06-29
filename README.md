@@ -33,6 +33,7 @@ The model was trained using a weather and rainfall dataset containing historical
 
 ## 📂 Project Structure
 
+```text
 Rising-Waters/
 │
 ├── app.py
@@ -44,15 +45,16 @@ Rising-Waters/
 ├── ER_diagram.png
 │
 ├── templates/
-│ ├── home.html
-│ ├── index.html
-│ ├── chance.html
-│ ├── no_chance.html
+│   ├── home.html
+│   ├── index.html
+│   ├── chance.html
+│   ├── no_chance.html
 │
 ├── static/
-│ └── style.css
+│   └── style.css
 │
 └── dataset/
+```
 
 ## 🌐 Live Demo
 👉 https://rising-waters-xzyj.onrender.com
