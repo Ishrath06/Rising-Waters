@@ -2,15 +2,30 @@
 <html>
 <head>
     <title>Rising Waters</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body>
-    <h1>🌊 Rising Waters - Flood Prediction System</h1>
 
-    <p>Welcome to the Flood Prediction Project</p>
+    <div class="card">
+        <h1>🌊 Rising Waters</h1>
 
-    <a href="/predict">
-        <button>Go to Prediction</button>
-    </a>
+        <p class="desc">
+            An AI-based Flood Prediction System that analyzes weather and rainfall data
+            to predict flood risk.
+        </p>
+
+        <ul class="info">
+            <li>✔ Predict flood risk using ML model</li>
+            <li>✔ Enter weather parameters</li>
+            <li>✔ Get Safe or Flood Alert result</li>
+        </ul>
+
+        <a href="/predict">
+            <button>Start Prediction</button>
+        </a>
+    </div>
+
 </body>
 </html>

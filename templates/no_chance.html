@@ -2,15 +2,19 @@
 <html>
 <head>
     <title>Safe</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body>
 
+<div class="result-card safe">
     <h1>✅ Safe</h1>
-
     <p>No flood predicted.</p>
 
+    <h2>Flood Risk: {{ risk }}%</h2>
+
     <a href="/predict">Check Again</a>
+</div>
 
 </body>
 </html>

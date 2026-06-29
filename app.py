@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request
 import joblib
 import numpy as np
 
@@ -14,13 +14,11 @@ def home():
     return render_template("home.html")
 
 
-# Route for Flood Predicted page
 @app.route("/chance")
 def chance():
     return render_template("chance.html")
 
 
-# Route for No Flood page
 @app.route("/no_chance")
 def no_chance():
     return render_template("no_chance.html")
@@ -44,14 +42,19 @@ def predict():
             float(request.form["sub"])
         ]]
 
+        # scale input
         data = scaler.transform(np.array(data))
 
-        result = model.predict(data)
+        # 🔥 GET PROBABILITY (MAIN FIX)
+        prob = model.predict_proba(data)[0][1] * 100
 
-        if result[0] == 1:
-            return redirect(url_for("chance"))
+        print("Flood Risk %:", prob)
+
+        # decision based on probability
+        if prob >= 50:
+            return render_template("chance.html", risk=round(prob, 2))
         else:
-            return redirect(url_for("no_chance"))
+            return render_template("no_chance.html", risk=round(prob, 2))
 
     return render_template("index.html")
 
