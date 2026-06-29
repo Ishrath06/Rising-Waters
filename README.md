@@ -56,13 +56,6 @@ Rising-Waters/
 └── dataset/
 ```
 
-## 📊 Data Visualization (EDA Results)
-
-
-### 📊 Correlation Heatmap
-![Correlation Heatmap](static/correlation_heatmap.png)
-
-
 
 ## 🌐 Live Demo
 👉 https://rising-waters-xzyj.onrender.com

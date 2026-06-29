@@ -3,10 +3,6 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 from sklearn.model_selection import train_test_split
-import os
-
-# create folder for saving graphs
-os.makedirs("static", exist_ok=True)
 
 # -------------------------
 # Load Dataset
@@ -14,12 +10,12 @@ os.makedirs("static", exist_ok=True)
 df = pd.read_excel("dataset/flood dataset.xlsx")
 
 # -------------------------
-# Handling Missing Values (EPIC 3 - PART 1)
+# Handling Missing Values
 # -------------------------
 print("===== MISSING VALUES COUNT =====")
 print(df.isnull().sum())
 
-print("\n===== ANY MISSING VALUES (True/False) =====")
+print("\n===== ANY MISSING VALUES =====")
 print(df.isnull().any())
 
 print("\n===== TOTAL MISSING VALUES =====")
@@ -41,36 +37,31 @@ print("\n===== STATISTICAL SUMMARY =====")
 print(df.describe())
 
 # -------------------------
-# Univariate Analysis (FIXED)
+# Univariate Analysis (NO SAVE - ONLY SHOW)
 # -------------------------
 
 sns.histplot(df['Temp'], kde=True)
 plt.title("Temperature Distribution")
-plt.savefig("static/temp_distribution.png")
 plt.show()
 plt.close()
 
 sns.histplot(df['Humidity'], kde=True)
 plt.title("Humidity Distribution")
-plt.savefig("static/humidity_distribution.png")
 plt.show()
 plt.close()
 
 sns.histplot(df['ANNUAL'], kde=True)
 plt.title("Annual Rainfall Distribution")
-plt.savefig("static/annual_distribution.png")
 plt.show()
 plt.close()
 
 sns.boxplot(x=df['Temp'])
 plt.title("Temperature Box Plot")
-plt.savefig("static/temp_boxplot.png")
 plt.show()
 plt.close()
 
 sns.boxplot(x=df['ANNUAL'])
 plt.title("Annual Rainfall Box Plot")
-plt.savefig("static/annual_boxplot.png")
 plt.show()
 plt.close()
 
@@ -86,12 +77,11 @@ sns.heatmap(
 )
 
 plt.title("Correlation Heatmap")
-plt.savefig("static/correlation_heatmap.png")
 plt.show()
 plt.close()
 
 # -------------------------
-# Handling Outliers (EPIC 3 - PART 2)
+# Outlier Handling
 # -------------------------
 Q1 = df['Temp'].quantile(0.25)
 Q3 = df['Temp'].quantile(0.75)
@@ -108,7 +98,7 @@ df['Temp'] = df['Temp'].apply(
 print("\n===== OUTLIERS HANDLED SUCCESSFULLY =====")
 
 # -------------------------
-# Handling Categorical Values (EPIC 3 - PART 3)
+# Encoding Categorical Data
 # -------------------------
 le = LabelEncoder()
 categorical_cols = df.select_dtypes(include=['object']).columns
@@ -139,15 +129,14 @@ X_test = sc.transform(X_test)
 
 print("\n===== FEATURE SCALING COMPLETED =====")
 
-# =========================================================
-# 🚀 MODELS
-# =========================================================
+# -------------------------
+# MODELS
+# -------------------------
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from xgboost import XGBClassifier
 from sklearn.tree import DecisionTreeClassifier
-from sklearn.metrics import accuracy_score, confusion_matrix, classification_report, precision_score, recall_score
-import joblib
+from sklearn.metrics import accuracy_score, precision_score, recall_score
 
 # -------------------------
 # RANDOM FOREST
@@ -239,7 +228,7 @@ def compareModel(y_test, dtree, rf_pred, knn_pred, xgb_pred):
 best_model = compareModel(y_test, dtree, rf_predictions, knn_predictions, xgb_predictions)
 
 # -------------------------
-# FINAL EVALUATION
+# FINAL METRICS
 # -------------------------
 print("\n===== FINAL METRICS =====")
 
@@ -249,11 +238,3 @@ print("XGB:", accuracy_score(y_test, xgb_predictions))
 
 print("\nPrecision:", precision_score(y_test, xgb_predictions))
 print("Recall:", recall_score(y_test, xgb_predictions))
-
-# -------------------------
-# SAVE MODEL
-# -------------------------
-joblib.dump(xgb_model, "floods.save")
-joblib.dump(sc, "transform.save")
-
-print("\n===== MODEL SAVED SUCCESSFULLY =====")
