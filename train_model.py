@@ -3,6 +3,10 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 from sklearn.model_selection import train_test_split
+import os
+
+# create folder for saving graphs
+os.makedirs("static", exist_ok=True)
 
 # -------------------------
 # Load Dataset
@@ -37,27 +41,38 @@ print("\n===== STATISTICAL SUMMARY =====")
 print(df.describe())
 
 # -------------------------
-# Univariate Analysis
+# Univariate Analysis (FIXED)
 # -------------------------
-sns.displot(df['Temp'])
+
+sns.histplot(df['Temp'], kde=True)
 plt.title("Temperature Distribution")
+plt.savefig("static/temp_distribution.png")
 plt.show()
+plt.close()
 
-sns.displot(df['Humidity'])
+sns.histplot(df['Humidity'], kde=True)
 plt.title("Humidity Distribution")
+plt.savefig("static/humidity_distribution.png")
 plt.show()
+plt.close()
 
-sns.displot(df['ANNUAL'])
+sns.histplot(df['ANNUAL'], kde=True)
 plt.title("Annual Rainfall Distribution")
+plt.savefig("static/annual_distribution.png")
 plt.show()
+plt.close()
 
 sns.boxplot(x=df['Temp'])
 plt.title("Temperature Box Plot")
+plt.savefig("static/temp_boxplot.png")
 plt.show()
+plt.close()
 
 sns.boxplot(x=df['ANNUAL'])
 plt.title("Annual Rainfall Box Plot")
+plt.savefig("static/annual_boxplot.png")
 plt.show()
+plt.close()
 
 # -------------------------
 # Multivariate Analysis
@@ -71,7 +86,9 @@ sns.heatmap(
 )
 
 plt.title("Correlation Heatmap")
+plt.savefig("static/correlation_heatmap.png")
 plt.show()
+plt.close()
 
 # -------------------------
 # Handling Outliers (EPIC 3 - PART 2)
@@ -123,16 +140,21 @@ X_test = sc.transform(X_test)
 print("\n===== FEATURE SCALING COMPLETED =====")
 
 # =========================================================
-# 🚀 RANDOM FOREST FUNCTION
+# 🚀 MODELS
 # =========================================================
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
+from sklearn.neighbors import KNeighborsClassifier
+from xgboost import XGBClassifier
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score, confusion_matrix, classification_report, precision_score, recall_score
+import joblib
 
+# -------------------------
+# RANDOM FOREST
+# -------------------------
 def randomForest(X_train, X_test, y_train, y_test,
                  n_estimators=180,
                  random_state=42):
-
-    print("\n===== RANDOM FOREST MODEL BUILDING =====")
 
     model = RandomForestClassifier(
         n_estimators=n_estimators,
@@ -140,184 +162,98 @@ def randomForest(X_train, X_test, y_train, y_test,
     )
 
     model.fit(X_train, y_train)
-
     y_pred = model.predict(X_test)
 
-    print("\nAccuracy:", accuracy_score(y_test, y_pred))
-    print("\nConfusion Matrix:\n", confusion_matrix(y_test, y_pred))
-    print("\nClassification Report:\n", classification_report(y_test, y_pred))
-
+    print("\nRF Accuracy:", accuracy_score(y_test, y_pred))
     return model, y_pred
 
-# =========================================================
-# 🚀 KNN FUNCTION
-# =========================================================
-from sklearn.neighbors import KNeighborsClassifier
-
+# -------------------------
+# KNN
+# -------------------------
 def KNN(X_train, X_test, y_train, y_test, n_neighbors=5):
 
-    print("\n===== KNN MODEL BUILDING =====")
-
     model = KNeighborsClassifier(n_neighbors=n_neighbors)
-
     model.fit(X_train, y_train)
-
     y_pred = model.predict(X_test)
 
-    accuracy = accuracy_score(y_test, y_pred)
-    cm = confusion_matrix(y_test, y_pred)
-    cr = classification_report(y_test, y_pred)
-
-    print("\nAccuracy:", accuracy)
-    print("\nConfusion Matrix:\n", cm)
-    print("\nClassification Report:\n", cr)
-
+    print("\nKNN Accuracy:", accuracy_score(y_test, y_pred))
     return model, y_pred
 
-# =========================================================
-# 🚀 XGBOOST FUNCTION
-# =========================================================
-from xgboost import XGBClassifier
-
+# -------------------------
+# XGBOOST
+# -------------------------
 def XGBoost(X_train, X_test, y_train, y_test):
 
-    print("\n===== XGBOOST MODEL BUILDING =====")
-
     model = XGBClassifier(eval_metric='logloss')
-
     model.fit(X_train, y_train)
-
     y_pred = model.predict(X_test)
 
-    accuracy = accuracy_score(y_test, y_pred)
-    cm = confusion_matrix(y_test, y_pred)
-    cr = classification_report(y_test, y_pred)
-
-    print("\nAccuracy:", accuracy)
-    print("\nConfusion Matrix:\n", cm)
-    print("\nClassification Report:\n", cr)
-
+    print("\nXGB Accuracy:", accuracy_score(y_test, y_pred))
     return model, y_pred
 
 # -------------------------
-# Other Models
+# DECISION TREE
 # -------------------------
-from sklearn import tree
-
-dtree = tree.DecisionTreeClassifier()
-
+dtree = DecisionTreeClassifier()
 dtree.fit(X_train, y_train)
 
 print("\n===== MODELS TRAINED SUCCESSFULLY =====")
 
 # -------------------------
-# CALL FUNCTIONS
+# CALL MODELS
 # -------------------------
-rf_model, rf_predictions = randomForest(
-    X_train,
-    X_test,
-    y_train,
-    y_test
-)
+rf_model, rf_predictions = randomForest(X_train, X_test, y_train, y_test)
+knn_model, knn_predictions = KNN(X_train, X_test, y_train, y_test)
+xgb_model, xgb_predictions = XGBoost(X_train, X_test, y_train, y_test)
 
-knn_model, knn_predictions = KNN(
-    X_train,
-    X_test,
-    y_train,
-    y_test
-)
-
-xgb_model, xgb_predictions = XGBoost(
-    X_train,
-    X_test,
-    y_train,
-    y_test
-)
-
-# =========================================================
-# 🚀 MODEL COMPARISON (FINAL EPIC 4 PART)
-# =========================================================
-from sklearn.metrics import accuracy_score
-
+# -------------------------
+# MODEL COMPARISON
+# -------------------------
 def compareModel(y_test, dtree, rf_pred, knn_pred, xgb_pred):
-
-    print("\n===== MODEL COMPARISON =====")
 
     dtree_acc = accuracy_score(y_test, dtree.predict(X_test))
     rf_acc = accuracy_score(y_test, rf_pred)
     knn_acc = accuracy_score(y_test, knn_pred)
     xgb_acc = accuracy_score(y_test, xgb_pred)
 
-    print("\nDecision Tree Accuracy :", dtree_acc)
-    print("Random Forest Accuracy :", rf_acc)
-    print("KNN Accuracy           :", knn_acc)
-    print("XGBoost Accuracy       :", xgb_acc)
+    print("\nDT:", dtree_acc)
+    print("RF:", rf_acc)
+    print("KNN:", knn_acc)
+    print("XGB:", xgb_acc)
 
-    accuracies = {
-        "Decision Tree": dtree_acc,
-        "Random Forest": rf_acc,
+    best_model = max({
+        "DT": dtree_acc,
+        "RF": rf_acc,
         "KNN": knn_acc,
-        "XGBoost": xgb_acc
-    }
+        "XGB": xgb_acc
+    }, key=lambda x: {
+        "DT": dtree_acc,
+        "RF": rf_acc,
+        "KNN": knn_acc,
+        "XGB": xgb_acc
+    }[x])
 
-    best_model = max(accuracies, key=accuracies.get)
-
-    print("\n====================================")
-    print("BEST MODEL:", best_model)
-    print("====================================")
-
+    print("\nBEST MODEL:", best_model)
     return best_model
 
-# -------------------------
-# CALL COMPARISON
-# -------------------------
-best_model = compareModel(
-    y_test,
-    dtree,
-    rf_predictions,
-    knn_predictions,
-    xgb_predictions
-)
-
-# =========================================================
-# 🚀 EPIC 4 - FINAL STEP: MODEL EVALUATION + SAVING
-# =========================================================
-
-import joblib
-from sklearn import metrics
-
-print("\n===== FINAL MODEL PERFORMANCE CHECK =====")
-
-# Predictions already available
-rf_pred = rf_predictions
-knn_pred = knn_predictions
-xgb_pred = xgb_predictions
+best_model = compareModel(y_test, dtree, rf_predictions, knn_predictions, xgb_predictions)
 
 # -------------------------
-# Accuracy Comparison
+# FINAL EVALUATION
 # -------------------------
-print("\n===== ACCURACY SCORES =====")
-print("Random Forest :", metrics.accuracy_score(y_test, rf_pred))
-print("KNN           :", metrics.accuracy_score(y_test, knn_pred))
-print("XGBoost       :", metrics.accuracy_score(y_test, xgb_pred))
+print("\n===== FINAL METRICS =====")
+
+print("RF:", accuracy_score(y_test, rf_predictions))
+print("KNN:", accuracy_score(y_test, knn_predictions))
+print("XGB:", accuracy_score(y_test, xgb_predictions))
+
+print("\nPrecision:", precision_score(y_test, xgb_predictions))
+print("Recall:", recall_score(y_test, xgb_predictions))
 
 # -------------------------
-# XGBOOST EXTRA METRICS (AS PER EPIC)
+# SAVE MODEL
 # -------------------------
-print("\n===== XGBOOST METRICS =====")
-print("Precision :", metrics.precision_score(y_test, xgb_pred))
-print("Recall    :", metrics.recall_score(y_test, xgb_pred))
-
-# -------------------------
-# SAVE FINAL MODEL + SCALER
-# -------------------------
-
-# Save trained XGBoost model
 joblib.dump(xgb_model, "floods.save")
-
-# Save scaler for deployment
 joblib.dump(sc, "transform.save")
 
 print("\n===== MODEL SAVED SUCCESSFULLY =====")
-print("✔ floods.save (XGBoost Model)")
-print("✔ transform.save (Scaler)")

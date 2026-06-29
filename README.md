@@ -56,6 +56,24 @@ Rising-Waters/
 └── dataset/
 ```
 
+## 📊 Data Visualization (EDA Results)
+
+### 🌡 Temperature Distribution
+![Temperature](static/temp_distribution.png)
+
+### 💧 Humidity Distribution
+![Humidity](static/humidity_distribution.png)
+
+### 🌧 Annual Rainfall Distribution
+![Annual Rainfall](static/annual_distribution.png)
+
+### 📊 Correlation Heatmap
+![Correlation Heatmap](static/correlation_heatmap.png)
+
+### 📦 Boxplot Analysis
+![Temp Boxplot](static/temp_boxplot.png)
+![Annual Boxplot](static/annual_boxplot.png)
+
 ## 🌐 Live Demo
 👉 https://rising-waters-xzyj.onrender.com
 ---
