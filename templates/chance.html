@@ -7,14 +7,33 @@
 
 <body>
 
-<div class="result-card danger">
-    <h1>⚠ Flood Alert!</h1>
-    <p>High chance of flood detected.</p>
+<!-- 🌧️ Rain effect (required for animation) -->
+<div class="rain">
+    </div>
 
-    <h2>Flood Risk: {{ risk }}%</h2>
+<!-- 🌊 RESULT CARD -->
+<div class="result-wrapper">
 
-    <a href="/predict">Try Again</a>
+    <div class="result-card danger">
+
+        <div class="icon">⚠️</div>
+
+        <h1>FLOOD ALERT</h1>
+
+        <p class="desc">
+            High chance of flood detected based on current weather conditions.
+        </p>
+
+        <div class="risk-box">
+            <h2>Flood Risk</h2>
+            <span>{{ risk }}%</span>
+        </div>
+
+        <a href="/predict">🔁 Try Again</a>
+
+    </div>
+
 </div>
-
+<script src="{{ url_for('static', filename='rain.js') }}"></script>
 </body>
 </html>

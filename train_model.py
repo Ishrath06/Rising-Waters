@@ -238,3 +238,12 @@ print("XGB:", accuracy_score(y_test, xgb_predictions))
 
 print("\nPrecision:", precision_score(y_test, xgb_predictions))
 print("Recall:", recall_score(y_test, xgb_predictions))
+import joblib
+
+# Save best model (example: XGBoost or RF)
+joblib.dump(xgb_model, "floods.save")
+
+# Save scaler
+joblib.dump(sc, "transform.save")
+
+print("\n===== MODEL & SCALER SAVED SUCCESSFULLY =====")

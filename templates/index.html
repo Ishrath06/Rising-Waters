@@ -4,45 +4,56 @@
     <title>Flood Prediction</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
+
 <body>
 
-<h2>🌊 Flood Prediction System</h2>
+<!-- 🌧️ Rain background -->
+<div class="rain">
+    
+</div>
 
-<form action="/predict" method="POST">
+<!-- 🌊 FORM CONTAINER -->
+<div class="form-wrapper">
 
-    <label>Temperature (°C)</label><br>
-    <input type="number" name="temp" placeholder="15 - 45 (e.g. 28)" min="15" max="45" required><br><br>
+    <h1 class="main-title">🌊 Flood Prediction System</h1>
 
-    <label>Humidity (%)</label><br>
-    <input type="number" name="humidity" placeholder="30 - 100 (e.g. 70)" min="30" max="100" required><br><br>
+    <form action="/predict" method="POST" class="glass-form">
 
-    <label>Cloud Cover (%)</label><br>
-    <input type="number" name="cloud" placeholder="0 - 100 (e.g. 60)" min="0" max="100" required><br><br>
+        <label>Temperature (°C)</label>
+        <input type="number" name="temp" placeholder="15 - 45 (e.g. 28)" required>
 
-    <label>Annual Rainfall (mm)</label><br>
-    <input type="number" step="any" name="annual" placeholder="500 - 3000 (e.g. 1200)" min="500" max="3000" required><br><br>
+        <label>Humidity (%)</label>
+        <input type="number" name="humidity" placeholder="30 - 100 (e.g. 70)" required>
 
-    <label>Jan-Feb Rainfall (mm)</label><br>
-    <input type="number" step="any" name="janfeb" placeholder="0 - 500 (e.g. 50)" min="0" max="500" required><br><br>
+        <label>Cloud Cover (%)</label>
+        <input type="number" name="cloud" placeholder="0 - 100 (e.g. 60)" required>
 
-    <label>Mar-May Rainfall (mm)</label><br>
-    <input type="number" step="any" name="marmay" placeholder="0 - 800 (e.g. 200)" min="0" max="800" required><br><br>
+        <label>Annual Rainfall (mm)</label>
+        <input type="number" name="annual" placeholder="500 - 3000" required>
 
-    <label>Jun-Sep Rainfall (mm)</label><br>
-    <input type="number" step="any" name="junsep" placeholder="100 - 1500 (e.g. 800)" min="100" max="1500" required><br><br>
+        <label>Jan-Feb Rainfall</label>
+        <input type="number" name="janfeb" placeholder="0 - 500" required>
 
-    <label>Oct-Dec Rainfall (mm)</label><br>
-    <input type="number" step="any" name="octdec" placeholder="0 - 800 (e.g. 300)" min="0" max="800" required><br><br>
+        <label>Mar-May Rainfall</label>
+        <input type="number" name="marmay" placeholder="0 - 800" required>
 
-    <label>Average June Rainfall (mm)</label><br>
-    <input type="number" step="any" name="avgjune" placeholder="0 - 500 (e.g. 100)" min="0" max="500" required><br><br>
+        <label>Jun-Sep Rainfall</label>
+        <input type="number" name="junsep" placeholder="100 - 1500" required>
 
-    <label>Flood Risk Index</label><br>
-    <input type="number" step="0.01" name="sub" placeholder="0 - 1 (e.g. 0.5)" min="0" max="1" required><br><br>
+        <label>Oct-Dec Rainfall</label>
+        <input type="number" name="octdec" placeholder="0 - 800" required>
 
-    <button type="submit">🌧 Predict</button>
+        <label>Average June Rainfall</label>
+        <input type="number" name="avgjune" placeholder="0 - 500" required>
 
-</form>
+        <label>Flood Risk Index</label>
+        <input type="number" step="0.01" name="sub" placeholder="0 - 1" required>
 
+        <button type="submit">🌧 Predict Flood Risk</button>
+
+    </form>
+
+</div>
+<script src="{{ url_for('static', filename='rain.js') }}"></script>
 </body>
 </html>

@@ -7,14 +7,35 @@
 
 <body>
 
-<div class="result-card safe">
-    <h1>✅ Safe</h1>
-    <p>No flood predicted.</p>
+<!-- 🌧️ Rain background -->
+<div class="rain">
 
-    <h2>Flood Risk: {{ risk }}%</h2>
-
-    <a href="/predict">Check Again</a>
 </div>
 
+<!-- 🌊 SAFE RESULT -->
+<div class="result-wrapper">
+
+    <div class="result-card safe">
+
+        <div class="icon">✅</div>
+
+        <h1>SAFE</h1>
+
+        <p class="desc">
+            No flood risk detected. Weather conditions are stable.
+        </p>
+
+        <div class="risk-box">
+            <h2>Flood Risk</h2>
+            <span>{{ risk }}%</span>
+        </div>
+
+        <a href="/predict">🔁 Check Again</a>
+
+    </div>
+
+</div>
+<script src="{{ url_for('static', filename='rain.js') }}"></script>
 </body>
+
 </html>

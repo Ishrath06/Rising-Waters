@@ -2,30 +2,43 @@
 <html>
 <head>
     <title>Rising Waters</title>
-
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body>
 
+<!-- 🌧️ Rain background -->
+<div class="rain">
+</div>
+
+<!-- 🌊 MAIN CARD -->
+<div class="home-wrapper">
+
     <div class="card">
-        <h1 class="main-title">🌊 Rising Waters</h1>
+
+        <div class="logo">🌊</div>
+
+        <h1 class="main-title">Rising Waters</h1>
 
         <p class="desc">
-            An AI-based Flood Prediction System that analyzes weather and rainfall data
-            to predict flood risk.
+            AI-powered Flood Prediction System that analyzes weather conditions
+            and predicts flood risk in real-time.
         </p>
 
         <ul class="info">
-            <li>✔ Predict flood risk using ML model</li>
-            <li>✔ Enter weather parameters</li>
-            <li>✔ Get Safe or Flood Alert result</li>
+            <li>✔ Machine Learning based prediction</li>
+            <li>✔ Real-time weather input analysis</li>
+            <li>✔ Safe / Flood risk classification</li>
+            <li>✔ High accuracy AI model</li>
         </ul>
 
         <a href="/predict">
-            <button>Start Prediction</button>
+            <button class="start-btn">🚀 Start Prediction</button>
         </a>
+
     </div>
 
+</div>
+<script src="{{ url_for('static', filename='rain.js') }}"></script>
 </body>
 </html>
