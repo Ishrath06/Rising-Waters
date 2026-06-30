@@ -42,18 +42,21 @@ Rising-Waters/
 ├── transform.save
 ├── requirements.txt
 ├── Procfile
+├── .gitignore
 ├── ER_diagram.png
 │
 ├── templates/
 │   ├── home.html
 │   ├── index.html
 │   ├── chance.html
-│   ├── no_chance.html
+│   └── no_chance.html
 │
 ├── static/
-│   └── style.css
+│   ├── style.css
+│   └── rain.js
 │
 └── dataset/
+    └── flood dataset.xlsx
 ```
 
 
